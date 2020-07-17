@@ -12,26 +12,37 @@ return elements in Last In First Out order.
 """
 import sys
 sys.path.append('../singly_linked_list')
-from singly_linked_list import LinkedList
+import sys
+import os, sys
+
+
+from singly_linked_list import LinkedList, Node
+
+class Node:
+    def __init__(self, data, next=None):
+        self.data = data
+        self.next = next
 
 class Stack:
     def __init__(self):
         self.size = 0
         self.storage = LinkedList()
-        # self.storage = ?
+        self.head = None
+        self.tail = None
 
     def __len__(self):
         return self.size
-    
 
     def push(self, value):
-        #self.storage.add_to_head(value)
-        self.storage.add_to_tail(value)
+        # size of LL gets increased by 1 every time we push
         self.size += 1
+        return self.storage.add_to_tail(value)
 
     def pop(self):
-        if self.size > 0:
+        # check if LL is empty. If so, we cannot remove an element
+        if self.size == 0:
+            return None
+        # if not empty, remove the tail (LIFO) and decrase the size by 1
+        else:
             self.size -= 1
-            #return self.storage.remove_head()
             return self.storage.remove_tail()
-        return None
